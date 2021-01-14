@@ -18,11 +18,6 @@ static int wordeq(char *word, char *reg_word)
     return (*word == *reg_word);
 }
 
-int cmp_word_nb(void *word1, void *word2)
-{
-    return (((wordlist_t*) word2)->nb - ((wordlist_t*) word1)->nb);
-}
-
 void register_word(char *str, int size, list_t **list)
 {
     wordlist_t *wordlist;
