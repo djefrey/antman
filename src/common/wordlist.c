@@ -59,6 +59,8 @@ wordlist_t *create_wordlist(list_t **list, char *word, int len)
 {
     wordlist_t *wordlist = malloc(sizeof(wordlist_t));
 
+    if (!wordlist)
+        return (NULL);
     wordlist->word = word;
     wordlist->len = len;
     wordlist->nb = 1;

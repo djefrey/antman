@@ -20,6 +20,10 @@ int read_file(char *path, char **str, int *len)
     stat(path, &statbuf);
     *len = statbuf.st_size;
     *str = malloc(sizeof(char) * (*len + 1));
+    if (!str) {
+        close(fd);
+        return (1);
+    }
     read(fd, *str, *len);
     close(fd);
     return (0);
