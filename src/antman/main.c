@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "antman.h"
+#include "common.h"
 #include "wordlist.h"
 
 void write_word(char *str, int word_len, list_t *list)

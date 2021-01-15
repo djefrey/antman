@@ -8,7 +8,8 @@
 
 SRC_ANT		=	src/antman/main.c			\
 				src/antman/dictionnary.c
-SRC_GIANT	=	src/giantman/main.c
+SRC_GIANT	=	src/giantman/main.c			\
+				src/giantman/dictionnary.c
 SRC_COMMON	=	src/common/files.c			\
 				src/common/wordlist.c		\
 				src/common/wordlist_fcts.c

@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "antman.h"
+#include "common.h"
 #include "wordlist.h"
 
 list_t *list_words(char *str, int str_len)
@@ -48,13 +48,12 @@ void clear_list(list_t **list)
 void write_dictionnary(list_t *list)
 {
     wordlist_t *wordlist;
+    char sep;
 
     for (; list; list = list->next) {
         wordlist = (wordlist_t*) list->data;
         write(1, wordlist->word, wordlist->len);
-        if (list->next)
-            write(1, DIC_SEPARATOR_CHAR, 1);
-        else
-            write(1, END_DIC_CHAR, 1);
+        sep = list->next ? DIC_SEPARATOR_CHAR : END_DIC_CHAR;
+        write(1, &sep, 1);
     }
 }
