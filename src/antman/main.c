@@ -6,12 +6,31 @@
 */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "antman.h"
 #include "wordlist.h"
 
-list_t *list_words(char *str, int str_len)
+void write_word(char *str, int word_len, list_t *list)
 {
-    list_t *list = NULL;
+    wordlist_t *wordlist;
+    char word[word_len + 1];
+    char call[2];
+
+    call[0] = CALL_DIC_CHAR;
+    my_strncpy(word, str, word_len);
+    for (int i = 0; list; i++, list = list->next) {
+        wordlist = (wordlist_t*) list->data;
+        if (wordeq(word, wordlist->word)) {
+            call[1] = (char) i;
+            write(1, call, 2);
+            return;
+        }
+    }
+    write(1, word, word_len);
+}
+
+void write_content(char *str, int str_len, list_t *list)
+{
     char *start = str;
     int word_len = 0;
 
@@ -19,43 +38,15 @@ list_t *list_words(char *str, int str_len)
         if (*str == ' ' || *str == '\t' || *str == '\n' ||
         *str == '.' || *str == ',' || *str == ':' || *str == ';') {
             if (word_len > 0)
-                register_word(start, word_len, &list);
-            word_len = 0;
+                write_word(start, word_len, list);
+            write(1, str, 1);
             start = str + 1;
+            word_len = 0;
         } else
             word_len += 1;
     }
     if (word_len > 0)
-        register_word(start, word_len, &list);
-    my_sort_list(&list, &cmp_word_weight);
-    return (list);
-}
-
-void clear_list(list_t **list)
-{
-    list_t *cpy = *list;
-    list_t *tmp;
-
-    my_delete_nodes(list, (void*) 1, &test_word_nb);
-    if (my_list_size(cpy) > 127) {
-        for (int i = 0; i <= 127; i++, cpy = cpy->next);
-        tmp = cpy->next;
-        destroy_wordlist(tmp);
-        cpy->next = NULL;
-    }
-}
-
-void write_dictionnary(list_t *list)
-{
-    wordlist_t *wordlist;
-    char sep;
-
-    for (; list; list = list->next) {
-        wordlist = (wordlist_t*) list->data;
-        write(1, wordlist->word, wordlist->len);
-        sep = list->next ? DIC_SEPARATOR_CHAR : END_DIC_CHAR;
-        write(1, &sep, 1);
-    }
+        write_word(start, word_len, list);
 }
 
 int main(int ac, char *av[])
@@ -71,6 +62,7 @@ int main(int ac, char *av[])
         list = list_words(str, len);
         clear_list(&list);
         write_dictionnary(list);
+        write_content(str, len, list);
         destroy_wordlist(list);
         free(str);
     }

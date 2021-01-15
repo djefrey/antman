@@ -9,7 +9,7 @@
 #include "my.h"
 #include "wordlist.h"
 
-static int wordeq(char *word, char *reg_word)
+int wordeq(char *word, char *reg_word)
 {
     for (; *word && *reg_word; word += 1, reg_word += 1) {
         if (*word != *reg_word)

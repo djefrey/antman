@@ -6,10 +6,11 @@
 ##
 
 
-SRC_ANT		=	src/antman/main.c
+SRC_ANT		=	src/antman/main.c			\
+				src/antman/dictionnary.c
 SRC_GIANT	=	src/giantman/main.c
-SRC_COMMON	=	src/common/files.c		\
-				src/common/wordlist.c	\
+SRC_COMMON	=	src/common/files.c			\
+				src/common/wordlist.c		\
 				src/common/wordlist_fcts.c
 
 OBJ_ANT		=	$(SRC_ANT:.c=.o)
