@@ -5,6 +5,7 @@
 ** main
 */
 
+#include <stdlib.h>
 #include <unistd.h>
 #include "my.h"
 #include "my_list.h"
@@ -49,6 +50,7 @@ int main(int ac, char *av[])
         list = create_dictionnary(str);
         write_content(str, len, list);
         free_dictionnary(list);
+        free(str);
     }
     return (0);
 }

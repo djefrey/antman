@@ -19,8 +19,9 @@ int my_apply_on_matching_nodes
 (list_t *begin, int (*f)(), void const *data_ref, int (*cmp)());
 int my_apply_on_nodes(list_t *begin , int (*f)(void *));
 void my_concat_list(list_t **begin1, list_t *begin2);
-int my_delete_node(list_t **begin, void *data);
-int my_delete_nodes(list_t **begin, void const *data_ref, int (*cmp)());
+int my_delete_node(list_t **begin, void *data, void (*free_data)());
+int my_delete_nodes(list_t **begin, void const *data_ref,
+int (*cmp)(), void (*free_data)());
 list_t *my_find_node(list_t  *begin , void *data_ref , int (*cmp)());
 int my_list_size(list_t *begin);
 void my_merge(list_t **begin1, list_t *begin2, int (*cmp)());

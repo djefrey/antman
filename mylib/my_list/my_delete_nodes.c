@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "my_list.h"
 
-int my_delete_node(list_t **begin, void *data)
+int my_delete_node(list_t **begin, void *data, void (*free_data)())
 {
     list_t *prev = NULL;
     list_t *actual = *begin;
@@ -17,6 +17,8 @@ int my_delete_node(list_t **begin, void *data)
     while (actual != NULL) {
         next = actual->next;
         if (actual->data == data) {
+            (*free_data)(actual->data);
+            free(actual);
             if (prev != NULL)
                 prev->next = next;
             else
@@ -29,7 +31,8 @@ int my_delete_node(list_t **begin, void *data)
     return (0);
 }
 
-int my_delete_nodes(list_t **begin, void const *data_ref, int (*cmp)())
+int my_delete_nodes(list_t **begin, void const *data_ref,
+int (*cmp)(), void (*free_data)())
 {
     list_t *prev = NULL;
     list_t *actual = *begin;
@@ -38,6 +41,8 @@ int my_delete_nodes(list_t **begin, void const *data_ref, int (*cmp)())
     while (actual != NULL) {
         next = actual->next;
         if ((*cmp)(actual->data, data_ref) == 0) {
+            (*free_data)(actual->data);
+            free(actual);
             if (prev != NULL)
                 prev->next = next;
             else

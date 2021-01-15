@@ -50,6 +50,12 @@ void destroy_wordlist(list_t *list)
     }
 }
 
+void destroy_single_wordlist(wordlist_t *wordlist)
+{
+    free(wordlist->word);
+    free(wordlist);
+}
+
 wordlist_t *create_wordlist(list_t **list, char *word, int len)
 {
     wordlist_t *wordlist = malloc(sizeof(wordlist_t));

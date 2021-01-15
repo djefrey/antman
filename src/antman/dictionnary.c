@@ -37,7 +37,7 @@ void clear_list(list_t **list)
     list_t *cpy = *list;
     list_t *tmp;
 
-    my_delete_nodes(list, NULL, &filter_word);
+    my_delete_nodes(list, NULL, &filter_word, &destroy_single_wordlist);
     if (my_list_size(cpy) > 127) {
         for (int i = 0; i <= 127; i++, cpy = cpy->next);
         tmp = cpy->next;
