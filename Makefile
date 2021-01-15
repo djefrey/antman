@@ -7,8 +7,10 @@
 
 
 SRC_ANT		=	src/antman/main.c			\
+				src/antman/text.c			\
 				src/antman/dictionnary.c
 SRC_GIANT	=	src/giantman/main.c			\
+				src/giantman/text.c			\
 				src/giantman/dictionnary.c
 SRC_COMMON	=	src/common/files.c			\
 				src/common/wordlist.c		\

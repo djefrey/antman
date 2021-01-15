@@ -12,6 +12,8 @@
 
 #include "my_list.h"
 
+int text_file_process(char *file);
+
 list_t *list_words(char *str, int str_len);
 void clear_list(list_t **list);
 void write_dictionnary(list_t *list);
