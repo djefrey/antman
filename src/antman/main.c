@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "my.h"
 #include "antman.h"
 #include "common.h"
 #include "wordlist.h"
@@ -52,7 +53,6 @@ void write_content(char *str, int str_len, list_t *list)
 
 int main(int ac, char *av[])
 {
-    wordlist_t *wordlist;
     list_t *list;
     char *str;
     int len;
