@@ -13,7 +13,7 @@ typedef  struct  list {
     struct list *next;
 } list_t;
 
-void create_list(list_t **list, void *data);
+int create_list(list_t **list, void *data);
 void my_add_in_sorted_list(list_t **begin, void *data, int (*cmp)());
 int my_apply_on_matching_nodes
 (list_t *begin, int (*f)(), void const *data_ref, int (*cmp)());

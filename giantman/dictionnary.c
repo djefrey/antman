@@ -12,16 +12,37 @@
 #include "common.h"
 #include "wordlist.h"
 
-void create_word(char *start_word, int word_len, list_t **list)
+static list_t *abort_program(list_t *list)
 {
-    wordlist_t *wordlist = malloc(sizeof(wordlist_t));
-    char *word = malloc(sizeof(char) * (word_len + 1));
+    list_t *tmp;
 
+    while (list) {
+        tmp = list->next;
+        if (!list->data)
+            continue;
+        destroy_single_wordlist((wordlist_t*) list->data);
+        free(list);
+        list = tmp;
+    }
+    return (NULL);
+}
+
+int create_word(char *start_word, int word_len, list_t **list)
+{
+    char *word = malloc(sizeof(char) * (word_len + 1));
+    wordlist_t *wordlist;
+
+    if (!word || !(wordlist = malloc(sizeof(wordlist_t))))
+        return (1);
     my_strncpy(word, start_word, word_len);
     wordlist->word = word;
     wordlist->len = word_len;
     wordlist->nb = 0;
-    create_list(list, wordlist);
+    if (create_list(list, wordlist)) {
+        destroy_single_wordlist(wordlist);
+        return (1);
+    }
+    return (0);
 }
 
 void free_dictionnary(list_t *list)
@@ -48,13 +69,15 @@ list_t *create_dictionnary(char *str)
         if (*str == END_DIC_CHAR)
             break;
         else if (*str == DIC_SEPARATOR_CHAR) {
-            create_word(start_word, word_len, &list);
+            if (create_word(start_word, word_len, &list))
+                return (abort_program(list));
             start_word = str + 1;
             word_len = 0;
         } else
             word_len += 1;
     }
-    create_word(start_word, word_len, &list);
+    if (create_word(start_word, word_len, &list))
+        return (abort_program(list));
     my_rev_list(&list);
     return (list);
 }

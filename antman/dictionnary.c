@@ -10,6 +10,21 @@
 #include "common.h"
 #include "wordlist.h"
 
+static list_t *abort_program(list_t *list)
+{
+    list_t *tmp;
+
+    while (list) {
+        tmp = list->next;
+        if (!list->data)
+            continue;
+        destroy_single_wordlist((wordlist_t*) list->data);
+        free(list);
+        list = tmp;
+    }
+    return (NULL);
+}
+
 list_t *list_words(char *str, int str_len)
 {
     list_t *list = NULL;
@@ -19,15 +34,15 @@ list_t *list_words(char *str, int str_len)
     for (int i = 0; i < str_len; i++, str += 1) {
         if (*str == ' ' || *str == '\t' || *str == '\n' ||
         *str == '.' || *str == ',' || *str == ':' || *str == ';') {
-            if (word_len > 0)
-                register_word(start, word_len, &list);
+            if (word_len > 0 && register_word(start, word_len, &list))
+                return (abort_program(list));
             word_len = 0;
             start = str + 1;
         } else
             word_len += 1;
     }
-    if (word_len > 0)
-        register_word(start, word_len, &list);
+    if (word_len > 0 && register_word(start, word_len, &list))
+        return (abort_program(list));
     my_sort_list(&list, &cmp_word_weight);
     return (list);
 }

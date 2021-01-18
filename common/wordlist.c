@@ -18,22 +18,22 @@ int wordeq(char *word, char *reg_word)
     return (*word == *reg_word);
 }
 
-void register_word(char *str, int size, list_t **list)
+int register_word(char *str, int size, list_t **list)
 {
     wordlist_t *wordlist;
     char word[size + 1];
 
     if (size < 3)
-        return;
+        return (0);
     my_strncpy(word, str, size);
     for (list_t *sel_list = *list; sel_list; sel_list = sel_list->next) {
         wordlist = (wordlist_t*) sel_list->data;
         if (wordeq(word, wordlist->word)) {
             wordlist->nb += 1;
-            return;
+            return (0);
         }
     }
-    create_wordlist(list, my_strdup(word), size);
+    return (create_wordlist(list, my_strdup(word), size) == NULL);
 }
 
 void destroy_wordlist(list_t *list)
@@ -58,13 +58,16 @@ void destroy_single_wordlist(wordlist_t *wordlist)
 
 wordlist_t *create_wordlist(list_t **list, char *word, int len)
 {
-    wordlist_t *wordlist = malloc(sizeof(wordlist_t));
+    wordlist_t *wordlist;
 
-    if (!wordlist)
+    if (!word || !(wordlist = malloc(sizeof(wordlist_t))))
         return (NULL);
     wordlist->word = word;
     wordlist->len = len;
     wordlist->nb = 1;
-    create_list(list, wordlist);
+    if (create_list(list, wordlist)) {
+        destroy_single_wordlist(wordlist);
+        return (NULL);
+    }
     return (wordlist);
 }

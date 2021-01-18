@@ -17,7 +17,7 @@ wordlist_t *create_wordlist(list_t **list, char *word, int len);
 void destroy_wordlist(list_t *list);
 void destroy_single_wordlist(wordlist_t *wordlist);
 
-void register_word(char *str, int size, list_t **list);
+int register_word(char *str, int size, list_t **list);
 
 int wordeq(char *word, char *reg_word);
 

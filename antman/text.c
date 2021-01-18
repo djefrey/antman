@@ -60,6 +60,10 @@ int text_file_process(char *file)
     if (read_file(file, &str, &len))
         return (84);
     list = list_words(str, len);
+    if (!list) {
+        free(str);
+        return (84);
+    }
     clear_list(&list);
     write_dictionnary(list);
     write_content(str, len, list);

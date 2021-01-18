@@ -47,6 +47,10 @@ int text_file_process(char *file)
     if (read_file(file, &str, &len))
         return (84);
     list = create_dictionnary(str);
+    if (!list && str[0] != END_DIC_CHAR) {
+        free(str);
+        return (84);
+    }
     write_content(str, len, list);
     free_dictionnary(list);
     free(str);
