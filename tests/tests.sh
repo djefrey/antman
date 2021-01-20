@@ -7,6 +7,9 @@ function compress_file {
     ../../antman/antman $1 $2 > compress.txt
     ../../giantman/giantman compress.txt $2 > decompress.txt
     diff=$(diff <(cat $1) <(cat decompress.txt))
+    ori_size=$(stat -c%s $1)
+    compress_size=$(stat -c%s compress.txt)
+    ratio=$(bc -l <<< "scale=2;(1-$compress_size/$ori_size)*100")
     rm compress.txt
     rm decompress.txt
     total=$((total + 1))
@@ -14,14 +17,9 @@ function compress_file {
     then
         printf "\e[31mFAILED\e[0m"
         fail=$((fail + 1))
-        printf "         $1" >> ../diff.txt
-        printf "" >> ../diff.txt
-        printf "$diff" >> ../diff.txt
-        printf "" >> ../diff.txt
-        printf "         -------[NEXT]-------" >> ../diff.txt
-        printf "" >> ../diff.txt
+        printf "         $1\n$diff\n         -------[NEXT]-------\n" >> ../diff.txt
     else
-        printf "\e[32mSUCCESS\e[0m"
+        printf "\e[32mSUCCESS $ratio%%\e[0m"
     fi
 }
 
@@ -34,6 +32,10 @@ function compress_folder {
     printf "\e[1m\e[34mTests $1\e[0m\n"
     for file in $list
     do
+        if [ $file = "compress.txt" ]
+        then
+            continue
+        fi
         printf "File \e[33m$file\e[0m\n"
         compress_file $file 1
         printf "\n"
