@@ -78,6 +78,7 @@ list_t *create_dictionnary(char *str)
     }
     if (create_word(start_word, word_len, &list))
         return (abort_program(list));
-    my_rev_list(&list);
+    if (list && list->next)
+        my_rev_list(&list);
     return (list);
 }

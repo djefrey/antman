@@ -50,13 +50,11 @@ list_t *list_words(char *str, int str_len)
 void clear_list(list_t **list)
 {
     list_t *cpy = *list;
-    list_t *tmp;
 
     my_delete_nodes(list, NULL, &filter_word, &destroy_single_wordlist);
-    if (my_list_size(cpy) > 127) {
-        for (int i = 0; i <= 127; i++, cpy = cpy->next);
-        tmp = cpy->next;
-        destroy_wordlist(tmp);
+    if (my_list_size(cpy) > 126) {
+        for (int i = 0; i <= 126; i++, cpy = cpy->next);
+        destroy_wordlist(cpy->next);
         cpy->next = NULL;
     }
 }
