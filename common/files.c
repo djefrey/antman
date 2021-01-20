@@ -16,9 +16,8 @@ int read_file(char *path, char **str, int *len)
     int fd = open(path, O_RDONLY);
     struct stat statbuf;
 
-    if (fd == -1)
+    if (fd == -1 || stat(path, &statbuf) == 1)
         return (1);
-    stat(path, &statbuf);
     *len = statbuf.st_size;
     *str = malloc(sizeof(char) * (*len + 1));
     if (!str) {
