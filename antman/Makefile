@@ -7,8 +7,7 @@
 
 
 SRC_ANT		=	main.c			\
-				text.c			\
-				dictionnary.c
+				lzss.c
 SRC_COMMON	=	../common/files.c			\
 				../common/wordlist.c		\
 				../common/wordlist_fcts.c
