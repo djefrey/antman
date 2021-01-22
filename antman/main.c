@@ -6,17 +6,18 @@
 */
 
 #include "antman.h"
+#include "common.h"
 
 int main(int ac, char *av[])
 {
     char *str;
     int len;
 
-    if (read_file(file, &str, &len))
-        return (84);
     if (ac == 3) {
+        if (read_file(av[1], &str, &len))
+            return (84);
         if (*av[2] == '1' || *av[2] == '2')
-            return (lzss(str));
+            return (lzss(str, len));
         else
             return (84);
     } else

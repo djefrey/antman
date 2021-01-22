@@ -6,12 +6,18 @@
 */
 
 #include "giantman.h"
+#include "common.h"
 
 int main(int ac, char *av[])
 {
+    char *str;
+    int len;
+
     if (ac == 3) {
+        if (read_file(av[1], &str, &len))
+            return (84);
         if (*av[2] == '1' || *av[2] == '2')
-            return (text_file_process(av[1]));
+            return (lzss(str, len));
         else
             return (84);
     } else

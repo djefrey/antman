@@ -8,6 +8,6 @@
 #ifndef ANTMAN_H_
 #define ANTMAN_H_
 
-void lzss(char *str, int len);
+int lzss(char *str, int len);
 
 #endif /* !ANTMAN_H_ */
