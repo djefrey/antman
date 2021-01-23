@@ -24,7 +24,10 @@ int read_file(char *path, char **str, int *len)
         close(fd);
         return (1);
     }
-    read(fd, *str, *len);
+    if (read(fd, *str, *len) == -1) {
+        close(fd);
+        return (84);
+    }
     close(fd);
     return (0);
 }
