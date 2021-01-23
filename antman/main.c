@@ -16,6 +16,8 @@ static int compress(char *str, int len, char mode)
             return (lzss(str, len));
         case '2':
             return (lzss(str, len));
+        case '3':
+            return (compress_img(str, len));
         default:
             return (84);
     }
