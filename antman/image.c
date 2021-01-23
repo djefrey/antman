@@ -34,8 +34,6 @@ int compress_img(char *str, int len)
     int i = 0;
     int nb_len = 0;
 
-    if (len == 0)
-        return (0);
     skip_header(str, &i);
     for (; i < len; i++) {
         for (nb_len = 0; str[i + nb_len] && str[i + nb_len] != '\n'; nb_len++);
