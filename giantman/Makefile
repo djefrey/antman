@@ -8,9 +8,7 @@
 
 SRC_GIANT	=	main.c			\
 				lzss.c
-SRC_COMMON	=	../common/files.c			\
-				../common/wordlist.c		\
-				../common/wordlist_fcts.c
+SRC_COMMON	=	../common/files.c
 
 OBJ_GIANT	=	$(SRC_GIANT:.c=.o)
 OBJ_COMMON	=	$(SRC_COMMON:.c=.o)

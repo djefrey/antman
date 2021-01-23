@@ -13,7 +13,7 @@ static int compare_to_reader(char *start, char *reader, int pos, int len)
     int size = 0;
 
     while (start[size] == reader[size]) {
-        if (size == READER_SIZE || start + size == reader ||
+        if (size == READER_SIZE - 1 || start + size == reader ||
         pos + size == len - 1)
             return (size);
         size++;
