@@ -9,5 +9,6 @@
 #define ANTMAN_H_
 
 int lzss(char *str, int len);
+int html(char *str, int len);
 
 #endif /* !ANTMAN_H_ */

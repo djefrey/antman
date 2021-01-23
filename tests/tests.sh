@@ -32,12 +32,12 @@ function compress_folder {
     printf "\e[1m\e[34mTests $1\e[0m\n"
     for file in $list
     do
-        if [ $file = "compress.txt" ]
+        if [ $file = "compress.txt" ] || [ $file = "decompress.txt" ]
         then
             continue
         fi
         printf "File \e[33m$file\e[0m\n"
-        compress_file $file 1
+        compress_file $file $2
         printf "\n"
     done
     printf "\n"

@@ -6,9 +6,13 @@
 ##
 
 
-SRC_ANT		=	main.c			\
-				lzss.c
-SRC_COMMON	=	../common/files.c
+SRC_ANT		=	main.c						\
+				lzss.c						\
+				html.c						\
+				dictionnary.c
+SRC_COMMON	=	../common/files.c			\
+				../common/wordlist.c		\
+				../common/wordlist_fcts.c
 
 OBJ_ANT		=	$(SRC_ANT:.c=.o)
 OBJ_COMMON	=	$(SRC_COMMON:.c=.o)

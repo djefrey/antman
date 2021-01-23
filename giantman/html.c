@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include "my.h"
 #include "my_list.h"
-#include "giantman.h"
+#include "html.h"
 #include "common.h"
 #include "wordlist.h"
 
@@ -38,25 +38,18 @@ void write_content(char *str, int len, list_t *list)
     }
 }
 
-int text_file_process(char *file)
+int html(char *str, int len)
 {
-    list_t *list;
-    char *str;
-    int len;
+    list_t *list = create_dictionnary(str);
 
-    if (read_file(file, &str, &len))
-        return (84);
-    list = create_dictionnary(str);
     if (!list) {
-        if (str[0] != END_DIC_CHAR) {
-            free(str);
+        if (str[0] != END_DIC_CHAR)
             return (84);
-        } else
+        else
             write(1, str, len);
     } else {
         write_content(str, len, list);
         free_dictionnary(list);
     }
-    free(str);
     return (0);
 }
