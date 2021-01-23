@@ -5,6 +5,10 @@
 ** image
 */
 
+#include <stdlib.h>
+#include <unistd.h>
+#include "my.h"
+
 int my_getnbr(char const *str)
 {
     int i = 0;
@@ -26,7 +30,7 @@ int my_getnbr(char const *str)
     return (number);
 }
 
-char *my_strncpy_pos(char *dest, char const *src, int n, int pos)
+void my_strncpy_pos(char *dest, char const *src, int n, int pos)
 {
     unsigned char add_border = 1;
     int i = 0;
@@ -41,7 +45,15 @@ char *my_strncpy_pos(char *dest, char const *src, int n, int pos)
     }
     if (add_border)
         dest[i] = '\0';
-    return (dest);
+}
+
+static void skip_header(char *str, int *i)
+{
+    for (int n = 0 ; n != 5; *i += 1) {
+        if (str[*i] == '\n')
+            n++;
+        my_putchar(str[*i]);
+    }
 }
 
 int compress_img(char *str, int len)
@@ -51,19 +63,15 @@ int compress_img(char *str, int len)
     int int_tmp;
     int j;
 
-    for (int n = 0 ; n != 5; i++) {
-        if (str[i] == '\n')
-        n++;
-        my_putchar(str[i]);
-    }
-    for (; str[i]; i++) {
-        for (j = i ;str[j] != '\n' && str[j] != '\0'; j++);
+    skip_header(str, &i);
+    for (; i < len; i++) {
+        for (j = i; str[j] != '\n' && str[j] != '\0'; j++);
         tmp = malloc(sizeof(char) * (j - i + 1));
-        tmp = my_strncpy_pos(tmp, str, j - i, i);
+        my_strncpy_pos(tmp, str, j - i, i);
         int_tmp = my_getnbr(tmp);
         write(1, &int_tmp, 1);
         free(tmp);
         i = j;
-        write(1, "\n", 1);
     }
+    return (0);
 }

@@ -9,7 +9,8 @@
 SRC_ANT		=	main.c						\
 				lzss.c						\
 				html.c						\
-				dictionnary.c
+				dictionnary.c				\
+				image.c
 SRC_COMMON	=	../common/files.c			\
 				../common/wordlist.c		\
 				../common/wordlist_fcts.c
