@@ -63,6 +63,8 @@ int compress_img(char *str, int len)
     int int_tmp;
     int j;
 
+    if (len == 0)
+        return (0);
     skip_header(str, &i);
     for (; i < len; i++) {
         for (j = i; str[j] != '\n' && str[j] != '\0'; j++);

@@ -53,6 +53,7 @@ function main {
     rm -f diff.txt
     compress_folder "./lyrics" 1
     compress_folder "./html" 2
+    compress_folder "./ppm" 3
     printf "\e[1mResults\e[0m\n"
     printf "Total : \e[32m$total\e[0m - Fail : \e[31m$fail\e[0m\n"
 }
