@@ -52,7 +52,7 @@ void register_data(char *str, int similar_data[2], char data[17], int nb_add)
             pos += 1;
     }
     if (similar_data[0]) {
-        data[pos] = (char) (similar_data[0] & 4080);
+        data[pos] = (char) ((similar_data[0] & 4080) >> 4);
         data[pos + 1] =
         (char) ((similar_data[0] & 15) << 4) | (similar_data[1] & 15);
     } else
@@ -94,6 +94,6 @@ int lzss(char *str, int len)
         }
     }
     if (nb_add)
-        write_data(data, nb_add);
+        write_data(data, nb_add - 1);
     return (0);
 }

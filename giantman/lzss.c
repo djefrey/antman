@@ -52,7 +52,7 @@ int *buff_size, char c1, char c2)
 
 static void write_buffer(char buffer[BUFFER_SIZE], int buff_size)
 {
-    for (int i = buff_size; i >= 0; i--)
+    for (int i = buff_size - 1; i >= 0; i--)
         write(1, &(buffer[i]), 1);
 }
 
