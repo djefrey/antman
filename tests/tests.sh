@@ -9,7 +9,12 @@ function compress_file {
     diff=$(diff <(cat $1) <(cat decompress.txt))
     ori_size=$(stat -c%s $1)
     compress_size=$(stat -c%s compress.txt)
-    ratio=$(bc -l <<< "scale=2;(1-$compress_size/$ori_size)*100")
+    if [ $ori_size -eq 0 ]
+    then
+        ratio=0
+    else
+        ratio=$(bc -l <<< "scale=2;(1-$compress_size/$ori_size)*100")
+    fi
     rm compress.txt
     rm decompress.txt
     total=$((total + 1))
