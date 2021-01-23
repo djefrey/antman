@@ -33,6 +33,8 @@ void search_similar_data(char *str, int pos, int similar_data[2], int len)
         if (result >= MIN_SIZE && result > biggest_len) {
             biggest_len = result;
             biggest_pos = i;
+            if (result == READER_SIZE - 1)
+                break;
         }
     }
     similar_data[0] = biggest_pos;
