@@ -15,7 +15,7 @@ static int compress(char *str, int len, char mode)
         case '1':
             return (lzss(str, len));
         case '2':
-            return (html(str, len));
+            return (lzss(str, len));
         default:
             return (84);
     }

@@ -11,11 +11,11 @@
 static void add_char(char buffer[BUFFER_SIZE],
 int *buff_size, char c)
 {
-    if (*buff_size == BUFFER_SIZE - 1)
+    if (*buff_size == BUFFER_SIZE)
         write(1, &(buffer[BUFFER_SIZE - 1]), 1);
-    else if (*buff_size < BUFFER_SIZE - 1)
+    else if (*buff_size < BUFFER_SIZE)
         *buff_size += 1;
-    for (int i = *buff_size; i > 0; i--)
+    for (int i = *buff_size - 1; i > 0; i--)
         buffer[i] = buffer[i - 1];
     buffer[0] = c;
 }
@@ -25,14 +25,16 @@ char str[READER_SIZE], int str_len)
 {
     int diff = 0;
 
-    if (*buff_size + str_len >= BUFFER_SIZE - 1) {
-        diff = (*buff_size + str_len) - (BUFFER_SIZE - 1);
-        for (int i = *buff_size; i > BUFFER_SIZE - 1 - diff; i--)
+    if (*buff_size + str_len >= BUFFER_SIZE) {
+        diff = (*buff_size - 1 + str_len) - (BUFFER_SIZE - 1);
+        if (*buff_size != BUFFER_SIZE)
+            diff += BUFFER_SIZE - *buff_size;
+        for (int i = *buff_size - 1; i > BUFFER_SIZE - 1 - diff; i--)
             write(1, &(buffer[i]), 1);
-        *buff_size = BUFFER_SIZE - 1;
+        *buff_size = BUFFER_SIZE;
     } else
         *buff_size += str_len;
-    for (int i = *buff_size; i >= str_len; i--)
+    for (int i = *buff_size - 1; i >= str_len; i--)
         buffer[i] = buffer[i - str_len];
     for (int i = 0; i < str_len; i++)
         buffer[i] = str[str_len - 1 - i];
@@ -52,9 +54,7 @@ int *buff_size, char c1, char c2)
 
 static void write_buffer(char buffer[BUFFER_SIZE], int buff_size)
 {
-    int start = buff_size == BUFFER_SIZE - 1 ? buff_size : buff_size - 1;
-
-    for (int i = start; i >= 0; i--)
+    for (int i = buff_size - 1; i >= 0; i--)
         write(1, &(buffer[i]), 1);
 }
 
