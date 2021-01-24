@@ -30,7 +30,7 @@ int read_file(char *path, char **str, int *len)
         return (1);
     tmp = malloc(sizeof(char) * (*len + 1));
     *str = tmp;
-    if (!str) {
+    if (!tmp) {
         close(fd);
         return (1);
     }
